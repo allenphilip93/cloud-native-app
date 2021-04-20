@@ -48,6 +48,12 @@ spring:
         - Path=/orders/**
         filters:
         - RewritePath=/orders/(?<path>.*), /$\{path}
+      - id: sellers-service
+        uri: lb://sellers-service
+        predicates:
+        - Path=/sellers/**
+        filters:
+        - RewritePath=/sellers/(?<path>.*), /$\{path}
       - id: openapi
         uri: http://localhost:${server.port}
         predicates:

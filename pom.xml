@@ -37,6 +37,7 @@
         <module>products-service</module>
 		<module>customers-service</module>
 		<module>reviews-service</module>
+		<module>sellers-service</module>
 		<module>orders-service</module>
 		<module>payments-service</module>
         <module>discovery-service</module>

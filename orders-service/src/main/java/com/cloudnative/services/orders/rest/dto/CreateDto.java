@@ -21,6 +21,11 @@ public class CreateDto {
     private String customerId;
 
     @Schema(example = "992871af")
+    @NotBlank
+    private String sellerId;
+
+    @Schema(example = "992871af")
+    @NotBlank
     private String paymentId;
 
     @Schema(example = "2018-05-20 18:58:59")
@@ -78,12 +83,22 @@ public class CreateDto {
         this.deliveredOn = deliveredOn;
     }
 
+
+    public String getSellerId() {
+        return this.sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", productId='" + getProductId() + "'" +
             ", customerId='" + getCustomerId() + "'" +
+            ", sellerId='" + getSellerId() + "'" +
             ", paymentId='" + getPaymentId() + "'" +
             ", createdOn='" + getCreatedOn() + "'" +
             ", deliveredOn='" + getDeliveredOn() + "'" +

@@ -16,6 +16,7 @@ public class Mapper {
         entity.setCustomerId(createDto.getCustomerId());
         entity.setPaymentId(createDto.getPaymentId());
         entity.setProductId(createDto.getProductId());
+        entity.setSellerId(createDto.getSellerId());
         return entity;
     }
 

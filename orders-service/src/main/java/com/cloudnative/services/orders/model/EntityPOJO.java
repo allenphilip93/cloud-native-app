@@ -15,14 +15,17 @@ public class EntityPOJO {
     @Id
     private String id;
 
-    @Column
+    @Column(name = "customer_id")
     private String customerId;
 
-    @Column
+    @Column(name = "product_id")
     private String productId;
 
-    @Column
+    @Column(name = "payment_id")
     private String paymentId;
+
+    @Column(name = "seller_id")
+    private String sellerId;
 
     @Column(name = "created_on")
     @Temporal(TemporalType.TIMESTAMP)
@@ -81,6 +84,15 @@ public class EntityPOJO {
         this.deliveredOn = deliveredOn;
     }
 
+
+    public String getSellerId() {
+        return this.sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -88,9 +100,11 @@ public class EntityPOJO {
             ", customerId='" + getCustomerId() + "'" +
             ", productId='" + getProductId() + "'" +
             ", paymentId='" + getPaymentId() + "'" +
+            ", sellerId='" + getSellerId() + "'" +
             ", createdOn='" + getCreatedOn() + "'" +
             ", deliveredOn='" + getDeliveredOn() + "'" +
             "}";
     }
+
 
 }

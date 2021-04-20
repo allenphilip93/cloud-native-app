@@ -1,0 +1,35 @@
+server:
+  port: 8095
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+spring:
+  main:
+    banner-mode: OFF
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dev
+    username: postgres
+    password: postgres
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,env,health,info,metrics,mappings,prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    probes:
+      enabled: true
+
+springdoc:
+  show-actuator: true
