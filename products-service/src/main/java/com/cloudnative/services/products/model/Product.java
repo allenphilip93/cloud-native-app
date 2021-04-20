@@ -27,6 +27,11 @@ public class Product {
     private double price;
 
     @Column
+    private String descr;
+
+    @Column(name = "added_on")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date addedOn;
 
     public String getId() {
         return this.id;
@@ -83,7 +88,6 @@ public class Product {
     public void setAddedOn(Date addedOn) {
         this.addedOn = addedOn;
     }
-    private String descr;
 
     @Override
     public String toString() {
@@ -97,9 +101,5 @@ public class Product {
             ", addedOn='" + getAddedOn() + "'" +
             "}";
     }
-
-    @Column(name = "added_on")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date addedOn;
 
 }
