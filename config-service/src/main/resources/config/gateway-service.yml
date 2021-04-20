@@ -24,6 +24,30 @@ spring:
         - Path=/products/**
         filters:
         - RewritePath=/products/(?<path>.*), /$\{path}
+      - id: customers-service
+        uri: lb://customers-service
+        predicates:
+        - Path=/customers/**
+        filters:
+        - RewritePath=/customers/(?<path>.*), /$\{path}
+      - id: reviews-service
+        uri: lb://reviews-service
+        predicates:
+        - Path=/reviews/**
+        filters:
+        - RewritePath=/reviews/(?<path>.*), /$\{path}
+      - id: payments-service
+        uri: lb://payments-service
+        predicates:
+        - Path=/payments/**
+        filters:
+        - RewritePath=/payments/(?<path>.*), /$\{path}
+      - id: orders-service
+        uri: lb://orders-service
+        predicates:
+        - Path=/orders/**
+        filters:
+        - RewritePath=/orders/(?<path>.*), /$\{path}
       - id: openapi
         uri: http://localhost:${server.port}
         predicates:
