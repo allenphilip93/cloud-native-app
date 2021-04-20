@@ -56,8 +56,8 @@ Things to do:
 - Kibana with metricbeat to connect to postgres metrics*
 
 - Define data models for project [Done]
-- Define Spring APIs to modify the data models [In Progress]
-- Define APIs to generate data using Kafka
+- Define Spring APIs to modify the data models [Done]
+- Define APIs to generate data using Kafka [In Progress]
 
 - Define a discovery service using spring cloud (Eureka) [Done]
 - Define a API gateway service (Zuul) [Done]
