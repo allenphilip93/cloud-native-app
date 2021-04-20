@@ -7,6 +7,26 @@ eureka:
   instance:
     preferIpAddress: true
 
-logging:
-  pattern: 
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+spring:
+  main:
+    banner-mode: OFF
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dev
+    username: postgres
+    password: postgres
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,env,health,info,metrics,mappings,prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    probes:
+      enabled: true
