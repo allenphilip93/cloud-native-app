@@ -3,16 +3,21 @@ package com.cloudnative.services.products.service;
 import com.cloudnative.services.products.exception.ProductNotFoundException;
 import com.cloudnative.services.products.model.Product;
 import com.cloudnative.services.products.repository.ApiRepository;
-import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ApiService {
 
     private final ApiRepository productRepository;
+
+    @Autowired
+    public ProductServiceImpl(ApiRepository producRepository) {
+        this.productRepository = producRepository;
+    }
 
     @Override
     public Product validateAndGet(String id) {

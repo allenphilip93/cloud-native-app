@@ -1,0 +1,78 @@
+docker run --rm --name movies-api -p 8080:8080 -e MYSQL_HOST=mysql --network=springboot-elk-prometheus-grafana_default docker.mycompany.com/movies-api:1.0.0
+
+minikube start --driver=virtualbox --cpus 2 --memory 2048
+
+docker exec -ti cloud-native-app_postgres_1 psql -U postgres -d dev -a -f /app/scripts/invoice-schema.sql
+
+docker exec -ti cloud-native-app_postgres_1 psql -U postgres -d dev
+
+COPY invoice FROM '/app/scripts/invoice-data.csv' DELIMITER ',' CSV HEADER;
+
+COPY invoice(invoice_no,stockcode,description,quantity,invoice_date,unitprice,customer_id,country) FROM '/app/scripts/invoice-data.csv' DELIMITER ',' CSV HEADER;
+
+COPY invoice(invoice_no,stockcode,description,quantity,invoice_date,unitprice,customer_id,country) FROM '/app/scripts/invoice-data-tab.csv' DELIMITER E'\t' CSV HEADER;
+
+COPY orders(product_id, seller_id, order_id, customer_id, order_status, order_purchase_timestamp, order_approved_at, order_delivered_carrier_date, order_delivered_customer_date, order_estimated_delivery_date, customer_unique_id, customer_zip_code_prefix, customer_city, customer_state, review_id, review_score, review_comment_title, review_comment_message, review_creation_date, review_answer_timestamp, payment_sequential, payment_type, payment_installments, payment_value, order_item_id, price, freight_value, seller_zip_code_prefix, seller_city, seller_state, product_category_name, product_name_lenght, product_description_lenght, product_photos_qty, product_weight_g, product_length_cm, product_height_cm, product_width_cm) FROM '/app/scripts/orders-data.csv' DELIMITER ',' CSV HEADER;
+
+update invoice set customer_id = 'Anonymous' where customer_id is NULL;
+
+COPY orders(product_id, seller_id, order_id, customer_id, order_status, order_purchase_timestamp, order_approved_at, order_delivered_carrier_date, order_delivered_customer_date, order_estimated_delivery_date, customer_unique_id, customer_zip_code_prefix, customer_city, customer_state, review_id, review_score, review_comment_title, review_comment_message, review_creation_date, review_answer_timestamp, payment_sequential, payment_type, payment_installments, payment_value, order_item_id, price, freight_value, seller_zip_code_prefix, seller_city, seller_state, product_category_name, product_name_lenght, product_description_lenght, product_photos_qty, product_weight_g, product_length_cm, product_height_cm, product_width_cm) FROM '/app/scripts/orders-data.csv' WITH (DELIMITER ',', FORMAT CSV, HEADER 1, FORCE_NULL(order_approved_at, order_delivered_customer_date, order_delivered_carrier_date));
+
+beats {
+    port => 5044
+    host => "0.0.0.0"
+	},
+jdbc {
+    jdbc_connection_string => "jdbc:postgresql://localhost:5232"
+    jdbc_user => "postgres"
+    jdbc_password => "postgres"
+    jdbc_driver_library => "/mnt/postgresql-42.2.1.jar"
+    jdbc_driver_class => "org.postgresql.Driver"
+    statement_filepath => "/mnt/users.sql"
+    tracking_column => "updated_at"
+    tracking_column_type => "timestamp"
+    use_column_value => true
+    schedule => "* * * * *"
+    last_run_metadata_path => "/mnt/.logstash_jdbc_last_run"
+}
+
+mvn install
+
+mvn spring-boot:run -pl config-service
+
+
+
+
+Idea:
+=====
+- dfufeaturematrix with grafana and setup alerts for promo model doctor
+	- how to view for only DFU
+
+
+Things to do:
+=============
+- Kibana with filebeat to connect to postgres logs [Done]
+- Kibana with logstash to index postgres db [Done]
+- Kibana with metricbeat to connect to postgres metrics*
+
+- Define data models for project [Done]
+- Define Spring APIs to modify the data models [In Progress]
+- Define APIs to generate data using Kafka
+
+- Define a discovery service using spring cloud (Eureka) [Done]
+- Define a API gateway service (Zuul) [Done]
+- Centralized Swagger UI for all discovered APIs [Done]
+- Define a API rate limiter logic using Redis
+
+- Monitor API rate limiting from Kibana/Granfana
+- API tracing using xxxx
+- Monitor db, service on 
+- Auto-scaling
+
+- Define data model for AI/ML (Demand Forecasting?)
+- Promo data visualization tools? Apache Superset?
+- Promo data doctor using monitoring tools & alerts?
+- Hosting it all on Kubernetes?
+
+
+
