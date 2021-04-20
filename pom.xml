@@ -3,13 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
     <groupId>com.cloudnative</groupId>
     <artifactId>cloud-native-app</artifactId>
     <version>1.0.0</version>
@@ -19,27 +12,163 @@
     <description>Demo project building a cloud native app</description>
 
     <properties>
-        <java.version>11</java.version>
-        <jib.maven-plugin.version>2.8.0</jib.maven-plugin.version>
+      <java.version>11</java.version>
+      <resource.delimiter>@</resource.delimiter>
+      <maven.compiler.source>${java.version}</maven.compiler.source>
+      <maven.compiler.target>${java.version}</maven.compiler.target>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+      <!-- <spring-boot.version>2.4.2</spring-boot.version> -->
+      <springdoc.version>1.5.7</springdoc.version>
+      <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+      <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+      <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+      <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+      <nexus-staging-maven-plugin>1.6.8</nexus-staging-maven-plugin>
+      <jib-maven-plugin.version>2.5.0</jib-maven-plugin.version>
+      <spring-boot-maven-plugin.version>2.4.2</spring-boot-maven-plugin.version>
+      <springdoc-openapi-maven-plugin.version>1.0</springdoc-openapi-maven-plugin.version>
+      <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
+      <springcloud.version>Hoxton.SR8</springcloud.version>
+      <jib.maven-plugin.version>2.8.0</jib.maven-plugin.version>
     </properties>
 
     <modules>
-        <module>movies-api</module>
+        <module>products-service</module>
+<!--        <module>customers-service</module>-->
+<!--        <module>reviews-service</module>-->
+<!--        <module>orders-service</module>-->
+<!--        <module>payments-service</module>-->
+        <module>discovery-service</module>
+        <module>gateway-service</module>
+        <module>config-service</module>
     </modules>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>${jib.maven-plugin.version}</version>
-                <configuration>
-                    <to>
-                        <image>${project.artifactId}:${project.version}</image>
-                    </to>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- OpenAPI 3 -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-webflux-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-webmvc-core</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-security</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-data-rest</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-hateoas</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+      <!-- spring cloud -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${springcloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springdoc</groupId>
+					<artifactId>springdoc-openapi-maven-plugin</artifactId>
+					<version>${springdoc-openapi-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${jib-maven-plugin.version}</version>
+				<configuration>
+					<to>
+						<image>${project.artifactId}:${project.version}</image>
+					</to>
+					<container>
+						<jvmFlags>
+							<jvmFlag>-XshowSettings:vm</jvmFlag>
+							<jvmFlag>-noverify</jvmFlag>
+							<jvmFlag>-Dspring.main.lazy-initialization=true</jvmFlag>
+							<jvmFlag>-XX:TieredStopAtLevel=1</jvmFlag>
+							<jvmFlag>-XX:+UseSerialGC</jvmFlag>
+						</jvmFlags>
+					</container>
+				</configuration>
+			</plugin>
+      <!-- <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>${jib.maven-plugin.version}</version>
+        <configuration>
+          <to>
+            <image>${project.artifactId}:${project.version}</image>
+          </to>
+        </configuration>
+      </plugin> -->
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
 
 </project>
