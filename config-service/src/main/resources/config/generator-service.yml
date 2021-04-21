@@ -44,5 +44,11 @@ management:
 springdoc:
   show-actuator: true
 
-scheduler:
-  enabled: false
+kafka:
+  bootstrapAddress: localhost:9092
+message:
+  topic:
+    name: customer
+event:
+  topic:
+    name: create
