@@ -16,7 +16,7 @@ public class TopicConfig {
   @Value(value = "${kafka.bootstrapAddress}")
   private String bootstrapAddress;
 
-  @Value(value = "${event.topic.name}")
+  @Value(value = "${customer.topic.name}")
   private String eventTopicName;
 
   @Bean

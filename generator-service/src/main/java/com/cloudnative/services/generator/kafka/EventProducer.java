@@ -11,7 +11,7 @@ public class EventProducer {
   @Autowired
   private KafkaTemplate<String, Event> eventKafkaTemplate;
 
-  @Value(value = "${event.topic.name}")
+  @Value(value = "${customer.topic.name}")
   private String eventTopicName;
 
   public void sendEventMessage(Event event) {
