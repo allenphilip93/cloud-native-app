@@ -23,6 +23,6 @@ public class CustomerTask {
     void execute() {
         String dateStr = new Date().toString();
         log.info("Sending message every 5 seconds: Time is " + dateStr);
-        producer.sendEventMessage(new Event("Generator API", dateStr));
+        producer.sendEventMessage(new Event("create", dateStr));
     }
 }

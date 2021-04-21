@@ -58,10 +58,13 @@ Things to do:
 - Define data models for project [Done]
 - Define Spring APIs to modify the data models [Done]
 - Define APIs to generate data using Kafka [In Progress]
-    - Create generator service
-    - Call other APIs from generator API
-    - Generator API to send out Kafka events
-    - Other APIs to have Kafka event listeners
+    - Create generator service [Done]
+    - Call other APIs from generator API [Done]
+    - Generator API to send out Kafka events [Done]
+    - Other APIs to have Kafka event listeners [Done]
+    - Generate random POJO object
+    - Create into DB
+    - Implement for all services
 
 - Define a discovery service using spring cloud (Eureka) [Done]
 - Define a API gateway service (Zuul) [Done]

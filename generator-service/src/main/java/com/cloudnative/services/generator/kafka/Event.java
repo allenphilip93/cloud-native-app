@@ -2,36 +2,36 @@ package com.cloudnative.services.generator.kafka;
 
 public class Event {
     
-    private String msg;
-    private String name;
+    private String type;
+    private String info;
 
     public Event() {
 
     }
 
-    public Event(String msg, String name) {
-        this.msg = msg;
-        this.name = name;
+    public Event(String type, String info) {
+        this.type = type;
+        this.info = info;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getType() {
+        return type;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getInfo() {
+        return info;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     @Override
     public String toString() {
-        return msg + ", " + name + "!";
+        return type + ", " + info + "!";
     }
 }
