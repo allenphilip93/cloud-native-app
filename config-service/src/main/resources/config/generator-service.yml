@@ -1,0 +1,48 @@
+server:
+  port: 8096
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+            - GET
+            - POST
+            - PUT
+  main:
+    banner-mode: OFF
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dev
+    username: postgres
+    password: postgres
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,env,health,info,metrics,mappings,prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    probes:
+      enabled: true
+
+springdoc:
+  show-actuator: true
+
+scheduler:
+  enabled: false

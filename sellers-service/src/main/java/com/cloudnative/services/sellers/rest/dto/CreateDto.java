@@ -3,7 +3,6 @@ package com.cloudnative.services.sellers.rest.dto;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

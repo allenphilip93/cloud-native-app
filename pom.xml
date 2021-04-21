@@ -40,6 +40,7 @@
 		<module>sellers-service</module>
 		<module>orders-service</module>
 		<module>payments-service</module>
+		<module>generator-service</module>
         <module>discovery-service</module>
         <module>gateway-service</module>
         <module>config-service</module>
