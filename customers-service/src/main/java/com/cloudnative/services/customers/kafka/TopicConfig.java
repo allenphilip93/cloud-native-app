@@ -16,9 +16,6 @@ public class TopicConfig {
   @Value(value = "${kafka.bootstrapAddress}")
   private String bootstrapAddress;
 
-  @Value(value = "${message.topic.name}")
-  private String topicName;
-
   @Value(value = "${event.topic.name}")
   private String eventTopicName;
 
@@ -31,11 +28,6 @@ public class TopicConfig {
 
   @Bean
   public NewTopic topic1() {
-    return new NewTopic(topicName, 1, (short) 1);
-  }
-
-  @Bean
-  public NewTopic topic2() {
     return new NewTopic(eventTopicName, 1, (short) 1);
   }
 }

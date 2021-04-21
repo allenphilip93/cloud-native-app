@@ -9,7 +9,7 @@ public class EventListener {
     private CountDownLatch eventLatch = new CountDownLatch(1);
 
     @KafkaListener(topics = "${event.topic.name}", containerFactory = "eventKafkaListenerContainerFactory")
-    public void greetingListener(Event event) {
+    public void eventListener(Event event) {
         System.out.println("Received event message: " + event);
         this.eventLatch.countDown();
     }
