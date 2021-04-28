@@ -10,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EventListener {
 
   private static final Logger log = LoggerFactory.getLogger(EventListener.class);
@@ -31,9 +33,9 @@ public class EventListener {
     System.out.println("Received event message: " + event);
     switch(event.getType()) {
       case "create":
-        log.info("Creating a customer: " + event.getInfo());
         EntityPOJO pojo = generatorService.generateNewPojo();
         apiService.create(pojo);
+        log.info("Created a new customer: " + pojo);
         break;
       default:
         log.error("Invalid event type recieved");

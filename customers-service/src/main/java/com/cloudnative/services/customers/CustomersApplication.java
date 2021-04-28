@@ -31,11 +31,6 @@ public class CustomersApplication {
 		listener.getEventLatch().await(10, TimeUnit.SECONDS);
 	}
 
-	@Bean
-	public EventListener eventListener() {
-		return new EventListener();
-	}
-
     @Bean
 	public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {
 		return new OpenAPI()
