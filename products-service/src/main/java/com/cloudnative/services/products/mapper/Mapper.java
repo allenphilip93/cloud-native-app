@@ -1,6 +1,6 @@
 package com.cloudnative.services.products.mapper;
 
-import com.cloudnative.services.products.model.Product;
+import com.cloudnative.services.products.model.EntityPOJO;
 import com.cloudnative.services.products.rest.dto.CreateProductDto;
 
 import org.springframework.stereotype.Component;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mapper {
 
-    public Product map(CreateProductDto createProductDto) {
-        Product product = new Product();
+    public EntityPOJO map(CreateProductDto createProductDto) {
+        EntityPOJO product = new EntityPOJO();
         product.setId(createProductDto.getId());
         product.setCategory(createProductDto.getCategory());
         product.setSubcategory(createProductDto.getSubcategory());

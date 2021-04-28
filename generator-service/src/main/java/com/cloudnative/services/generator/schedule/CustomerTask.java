@@ -3,7 +3,7 @@ package com.cloudnative.services.generator.schedule;
 import java.util.Date;
 
 import com.cloudnative.services.generator.kafka.Event;
-import com.cloudnative.services.generator.kafka.EventProducer;
+import com.cloudnative.services.generator.kafka.CustomerEventProducer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ public class CustomerTask {
     private static final Logger log = LoggerFactory.getLogger(CustomerTask.class);
 
     @Autowired
-    private EventProducer producer;
+    private CustomerEventProducer producer;
 
     @Scheduled(initialDelay = 5000, fixedDelay = 5000)
     void execute() {

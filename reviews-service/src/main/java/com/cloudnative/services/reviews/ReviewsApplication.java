@@ -1,9 +1,14 @@
 package com.cloudnative.services.reviews;
 
+import java.util.concurrent.TimeUnit;
+
+import com.cloudnative.services.reviews.kafka.EventListener;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -19,8 +24,11 @@ import io.swagger.v3.oas.models.info.License;
 )
 public class ReviewsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ReviewsApplication.class, args);
+	public static void main(String[] args) throws Exception {
+		ConfigurableApplicationContext context = SpringApplication.run(ReviewsApplication.class, args);
+
+		EventListener listener = context.getBean(EventListener.class);
+		listener.getEventLatch().await(10, TimeUnit.SECONDS);
 	}
 
     @Bean

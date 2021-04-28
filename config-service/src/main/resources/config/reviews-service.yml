@@ -33,3 +33,9 @@ management:
 
 springdoc:
   show-actuator: true
+
+kafka:
+  bootstrapAddress: localhost:9092
+event:
+  topic:
+    name: review-event

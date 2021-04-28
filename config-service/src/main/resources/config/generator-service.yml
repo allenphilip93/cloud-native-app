@@ -46,6 +46,29 @@ springdoc:
 
 kafka:
   bootstrapAddress: localhost:9092
+
 customer:
   topic:
     name: customer-event
+
+order:
+  topic:
+    name: order-event
+
+product:
+  topic:
+    name: product-event
+
+seller:
+  topic:
+    name: seller-event
+
+payment:
+  topic:
+    name: payment-event
+
+review:
+  topic:
+    name: review-event
+
+

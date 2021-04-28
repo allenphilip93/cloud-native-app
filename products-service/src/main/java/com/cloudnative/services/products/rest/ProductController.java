@@ -1,7 +1,7 @@
 package com.cloudnative.services.products.rest;
 
 import com.cloudnative.services.products.mapper.Mapper;
-import com.cloudnative.services.products.model.Product;
+import com.cloudnative.services.products.model.EntityPOJO;
 import com.cloudnative.services.products.rest.dto.CreateProductDto;
 import com.cloudnative.services.products.service.ApiService;
 
@@ -39,22 +39,22 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAll() {
-        List<Product> products = productService.getAll();
+    public List<EntityPOJO> getAll() {
+        List<EntityPOJO> products = productService.getAll();
         log.info("Get all products", v("numProductsReturned", products.size()));
         return products;
     }
 
     @GetMapping("/{id}")
-    public Product get(@PathVariable("id") String id) {
+    public EntityPOJO get(@PathVariable("id") String id) {
         log.info("Get product", v("id", id));
         return productService.validateAndGet(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Product create(@Valid @RequestBody CreateProductDto createProductDto) {
-        Product product = mapper.map(createProductDto);
+    public EntityPOJO create(@Valid @RequestBody CreateProductDto createProductDto) {
+        EntityPOJO product = mapper.map(createProductDto);
         product = productService.create(product);
         log.info("Product created", v("id", product.getId()));
         return product;
@@ -62,7 +62,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") String imdb) {
-        Product product = productService.validateAndGet(imdb);
+        EntityPOJO product = productService.validateAndGet(imdb);
         productService.delete(product);
         log.info("Product deleted", v("id", product.getId()));
         return product.getId();

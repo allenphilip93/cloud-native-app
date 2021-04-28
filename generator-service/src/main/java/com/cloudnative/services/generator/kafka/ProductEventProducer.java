@@ -6,12 +6,12 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EventProducer {
+public class ProductEventProducer {
 
   @Autowired
   private KafkaTemplate<String, Event> eventKafkaTemplate;
 
-  @Value(value = "${customer.topic.name}")
+  @Value(value = "${product.topic.name}")
   private String eventTopicName;
 
   public void sendEventMessage(Event event) {

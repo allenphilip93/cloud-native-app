@@ -1,17 +1,39 @@
 package com.cloudnative.services.products.service;
 
-import com.cloudnative.services.products.model.Product;
-
 import java.util.List;
 
-public interface ApiService {
+import com.cloudnative.services.products.exception.NotFoundException;
+import com.cloudnative.services.products.model.EntityPOJO;
+import com.cloudnative.services.products.repository.ApiRepository;
 
-    Product validateAndGet(String imdb);
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-    List<Product> getAll();
+@Service
+public class ApiService {
 
-    Product create(Product product);
+    private final ApiRepository repository;
 
-    void delete(Product product);
+    @Autowired
+    public ApiService(ApiRepository repository) {
+        this.repository = repository;
+    }
 
+    public EntityPOJO validateAndGet(String id) {
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    public List<EntityPOJO> getAll() {
+        return repository.findAll();
+    }
+
+    public EntityPOJO create(EntityPOJO product) {
+        return repository.save(product);
+    }
+
+    public void delete(EntityPOJO product) {
+        repository.delete(product);
+    }
+
+    
 }
